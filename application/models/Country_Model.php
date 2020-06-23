@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Global_Model extends CI_Model
+class Country_Model extends CI_Model
 {
     public function __contruct()
     {
@@ -14,12 +14,18 @@ class Global_Model extends CI_Model
 
     private function  _mapDate($entity)
     {
-        $entity["date"] = date_format(date_create("$entity[DATE_YEAR]-$entity[DATE_MONTH]-$entity[DATE_DAY]"),"Y-m-d");
+        
+        // unset($entity["location_at"]);
+        // unset($entity["location_on"]);
+
+        array_pop($entity);
+        array_pop($entity);
+
         return array_change_key_case($entity,CASE_LOWER);;
     }
 
     public function getAll()
     {
-        return $this->_map($this->db->query("SELECT * FROM sys.GLOBALS")->result_array());
+        return $this->_map($this->db->query("SELECT * FROM sys.Countries")->result_array());
     }
 }
