@@ -954,7 +954,7 @@ willDo = (function() {
         }
         // save current polygon
         currentPolygon = mapPolygon;
-        var countryIndex = countryIndexMap[mapPolygon.dataItem.id];
+        var countryIndex = countries.findIndex(x => x.iso2 == mapPolygon.dataItem.id);
         currentCountry = mapPolygon.dataItem.dataContext.name;
 
         // make others inactive
