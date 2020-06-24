@@ -3,7 +3,7 @@ am4core.useTheme(am4themes_animated);
 am4core.useTheme(am4themes_dark);
 // Themes end
 
-am4core.ready(function() {
+var createGraph = (function() {
 
     //#region data, map-data
     var populations = {

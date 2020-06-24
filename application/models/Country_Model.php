@@ -26,6 +26,6 @@ class Country_Model extends CI_Model
 
     public function getAll()
     {
-        return $this->_map($this->db->query("SELECT * FROM sys.Countries")->result_array());
+        return $this->_map($this->db->query("SELECT * FROM sys.Countries ORDER BY ID")->result_array());
     }
 }

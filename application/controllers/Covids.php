@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit();
+<?php defined('BASEPATH') or exit("No direct script access allowed");
 
 class Covids extends CI_Controller
 {
@@ -10,8 +10,6 @@ class Covids extends CI_Controller
     public function getAll()
     {
         if(isset(getallheaders()["HTTP_X_REQUESTED_WITH"]))
-        {
-            echo $this->repo->getAll();
-        }
+            echo json_encode($this->repo->getAll());
     }
 }

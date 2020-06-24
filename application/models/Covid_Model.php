@@ -9,7 +9,32 @@ class Covid_Model extends CI_Model
 
     private function _map($array)
     {
-        return array_map([$this, "_mapDate"], $array);
+        $_array = [];
+        $array = array_map([$this, "_mapDate"], $array);
+
+        foreach($array as $value) {
+            $date =  "$value[date_year]-$value[date_month]-$value[date_day]";
+
+            $_find = array_search($date,array_column($_array,"date"));
+
+            if($_find === FALSE) {
+                $_find = count($_array);
+                $_array[] = [
+                    "date" => $date,
+                    "lists" => []
+                ];
+            }
+            
+            $_array[$_find]["lists"][] = [
+                "id" => $value["id"],
+                "confirmed" => $value["confirmed"],
+                "deaths" => $value["deaths"],
+                "recoverd" => $value["recoverd"],
+                "active" => $value["active"]
+            ];
+        }
+
+        return $_array;
     }
 
     private function  _mapDate($entity)
@@ -25,7 +50,7 @@ class Covid_Model extends CI_Model
                 FROM SYS.COVID_COUNTRIES GROUP BY DATE_YEAR, DATE_MONTH, DATE_DAY, COUNTRY_ID
                 ORDER BY DATE_YEAR, DATE_MONTH, DATE_DAY, COUNTRY_ID) covid 
         JOIN sys.COUNTRIES ON sys.countries.id = covid.COUNTRY_ID
-        "
-        return $this->_map($this->db->query($query) ->result_array());
+        ";
+        return $this->_map($this->db->query($query)->result_array());
     }
 }
