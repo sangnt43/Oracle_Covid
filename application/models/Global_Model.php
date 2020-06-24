@@ -22,23 +22,16 @@ class Global_Model extends CI_Model
     {
         return $this->_map($this->db->query("SELECT * FROM sys.GLOBALS")->result_array());
     }
-    public function getAllTmp()
+    
+    public function getByCountry()
     {
-        return [
-            [
-                "confirmed" => 3,
-                "deathes" => 1,
-                "recovered" => 1,
-                "active" => 1,
-                "date" => "2020-05-23"
-            ],
-            [
-                "confirmed" => 3,
-                "deathes" => 1,
-                "recovered" => 1,
-                "active" => 1,
-                "date" => "2020-05-22"
-            ]
-        ];
+        $query = "
+        SELECT * FROM sys.COUNTRIES
+            LEFT JOIN (SELECT sys.covid_countries.country_id, MAX(confirmed) confirmed,MAX(deaths) DEATHES,MAX(recoverd) RECOVERED,MAX(active) ACTIVE 
+                        FROM sys.COVID_COUNTRIES GROUP BY country_id) covid
+            ON covid.country_id = sys.countries.id
+            ORDER BY sys.COUNTRIES.id";
+
+        return $this->_map($this->db->query($query)->result_array());
     }
 }

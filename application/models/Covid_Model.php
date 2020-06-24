@@ -19,36 +19,13 @@ class Covid_Model extends CI_Model
 
     public function getAll()
     {
-        return $this->_map($this->db
-            ->group_by(["DATE_YEAR", "DATE_MONTH", "DATE_DAY", "COUNTRY_ID"])
-            ->query("SELECT * FROM sys.COVID_COUTRIES")
-            ->result_array());
-    }
-    public function getAllTmp()
-    {
-        return [
-            [
-                "country_id" => 1,
-                "country_name" => "Viet Nam",
-                "slug" => "viet-nam",
-                "iso2" => "VN",
-                "confirmed" => 3,
-                "deathes" => 1,
-                "recovered" => 1,
-                "active" => 1,
-                "date" => "2020-05-23"
-            ],
-            [
-                "country_id" => 1,
-                "country_name" => "Viet Nam",
-                "slug" => "viet-nam",
-                "iso2" => "VN",
-                "confirmed" => 3,
-                "deathes" => 1,
-                "recovered" => 1,
-                "active" => 1,
-                "date" => "2020-05-22"
-            ]
-        ];
+        $query = "
+        SELECT sys.COUNTRIES.ISO2 ID, confirmed,deaths,recoverd,active, DATE_YEAR, DATE_MONTH, DATE_DAY FROM (            
+            SELECT COUNTRY_ID, sum(confirmed) confirmed,sum(deaths) deaths,sum(recoverd) recoverd,sum(active) active, DATE_YEAR, DATE_MONTH, DATE_DAY
+                FROM SYS.COVID_COUNTRIES GROUP BY DATE_YEAR, DATE_MONTH, DATE_DAY, COUNTRY_ID
+                ORDER BY DATE_YEAR, DATE_MONTH, DATE_DAY, COUNTRY_ID) covid 
+        JOIN sys.COUNTRIES ON sys.countries.id = covid.COUNTRY_ID
+        "
+        return $this->_map($this->db->query($query) ->result_array());
     }
 }
