@@ -13,19 +13,15 @@ class Covid_Model extends CI_Model
         $array = array_map([$this, "_mapDate"], $array);
 
         foreach($array as $value) {
-            $date =  "$value[date_year]-$value[date_month]-$value[date_day]";
+            $date =  date_format(date_create("$value[date_year]-$value[date_month]-$value[date_day]"),"y-m-d");
 
             $_find = array_search($date,array_column($_array,"date"));
 
             if($_find === FALSE) {
                 $_find = count($_array);
-                $_array[] = [
-                    "date" => $date,
-                    "lists" => []
-                ];
+                $_array[] = [ "date" => $date, "list" => [] ];
             }
-            
-            $_array[$_find]["lists"][] = [
+            $_array[$_find]["list"][] = [
                 "id" => $value["id"],
                 "confirmed" => $value["confirmed"],
                 "deaths" => $value["deaths"],
@@ -33,7 +29,6 @@ class Covid_Model extends CI_Model
                 "active" => $value["active"]
             ];
         }
-
         return $_array;
     }
 
