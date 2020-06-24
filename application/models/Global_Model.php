@@ -2,9 +2,9 @@
 
 class Global_Model extends CI_Model
 {
-    public function __contruct()
+    public function __construct()
     {
-        parent::__contruct();
+        parent::__construct();
     }
 
     private function _map($array) 
@@ -21,5 +21,24 @@ class Global_Model extends CI_Model
     public function getAll()
     {
         return $this->_map($this->db->query("SELECT * FROM sys.GLOBALS")->result_array());
+    }
+    public function getAllTmp()
+    {
+        return [
+            [
+                "confirmed" => 3,
+                "deathes" => 1,
+                "recovered" => 1,
+                "active" => 1,
+                "date" => "2020-05-23"
+            ],
+            [
+                "confirmed" => 3,
+                "deathes" => 1,
+                "recovered" => 1,
+                "active" => 1,
+                "date" => "2020-05-22"
+            ]
+        ];
     }
 }

@@ -2,9 +2,9 @@
 
 class Country_Model extends CI_Model
 {
-    public function __contruct()
+    public function __construct()
     {
-        parent::__contruct();
+        parent::__construct();
     }
 
     private function _map($array) 
