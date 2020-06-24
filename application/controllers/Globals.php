@@ -12,6 +12,6 @@ class Globals extends CI_Controller
     public function getAll()
     {
         if(isset(getallheaders()["HTTP_X_REQUESTED_WITH"]))
-            echo json_encode($this->repo->getAll());
+            echo json_encode($this->repo->getAllTmp());
     }
 }

@@ -345,7 +345,6 @@ am4core.ready(function() {
         }
     }
 
-
     var max = { confirmed: 0, recovered: 0, deaths: 0 };
     var maxPC = { confirmed: 0, recovered: 0, deaths: 0, active: 0 };
 
@@ -1441,9 +1440,10 @@ am4core.ready(function() {
             var di = data[i];
             var image = bubbleSeries.getImageById(di.id);
             var polygon = polygonSeries.getPolygonById(di.id);
+            var population;
 
             if (image) {
-                var population = Number(populations[image.dataItem.dataContext.id]);
+                population = Number(populations[image.dataItem.dataContext.id]);
 
                 image.dataItem.dataContext.confirmed = di.confirmed;
                 image.dataItem.dataContext.deaths = di.deaths;

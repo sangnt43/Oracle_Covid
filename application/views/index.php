@@ -56,7 +56,7 @@
 
 <script>
     window.addEventListener("DOMContentLoaded",async () => {
-        var _ = await (fetch("<?= base_url("Countries/GetAll") ?>",{
+        window.countries = await (fetch("<?= base_url("Countries/GetAll") ?>",{
                     headers: {
                         "HTTP_X_REQUESTED_WITH" : "AJAX"
                     }
@@ -72,8 +72,7 @@
                             "HTTP_X_REQUESTED_WITH" : "AJAX"
                         }
                     }).then(b=> b.json()))
-
-        willDo();                
+        willDo();
     })
     // fetch("<?= base_url("Countries/GetAll") ?>",{
     //     headers: {
