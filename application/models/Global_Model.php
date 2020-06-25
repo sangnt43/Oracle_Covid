@@ -14,14 +14,9 @@ class Global_Model extends CI_Model
 
     private function  _mapDate($entity)
     {
-        $entity["date"] = date_format(date_create("$entity[DATE_YEAR]-$entity[DATE_MONTH]-$entity[DATE_DAY]"),"YY-m-d");
+        $entity["date"] = date_format(date_create("$entity[DATE_YEAR]-$entity[DATE_MONTH]-$entity[DATE_DAY]"),"Y-m-d");
         return array_change_key_case($entity,CASE_LOWER);;
     }
-
-    // public function getAll()
-    // {
-    //     return $this->_map($this->db->query("SELECT * FROM sys.GLOBALS")->result_array());
-    // }
     
     public function getAll()
     {

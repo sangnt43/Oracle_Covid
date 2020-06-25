@@ -14,7 +14,6 @@ class Country_Model extends CI_Model
 
     private function  _mapDate($entity)
     {
-        array_pop($entity); array_pop($entity);
         return array_change_key_case($entity,CASE_LOWER);;
     }
 

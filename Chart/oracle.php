@@ -140,7 +140,7 @@ if (!$conn) {
     {
         foreach ($countries_populations as $ISO2 => $population) {
 
-            $query = "UPDATE table sys.COUNTRIES SET populations = $population WHERE ISO2 = '$ISO2'";
+            $query = "UPDATE sys.COUNTRIES SET POPULATIONS = $population WHERE ISO2 = '$ISO2'";
 
             $stid = oci_parse($conn, $query);
 
