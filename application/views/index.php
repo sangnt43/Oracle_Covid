@@ -23,10 +23,6 @@
     <script src="<?= base_url("public/vendors/datatables/js/jquery.dataTables.min.js") ?>"></script>
     <script src="<?= base_url("public/vendors/datatables/js/dataTables.select.min.js") ?>"></script>
 
-    <!-- Data  -->
-    <!-- <script src="<?= base_url("public/data/js/world_timeline.js") ?>"></script>
-    <script src="<?= base_url("public/data/js/total_timeline.js") ?>"></script> -->
-
     <!-- Stylesheet -->
     <link rel="stylesheet" media="all" href="<?= base_url("public/dark.css") ?>" />
 </head>
@@ -55,54 +51,29 @@
 <script src="<?= base_url("public/app.js") ?>"></script>
 
 <script>
-    window.addEventListener("DOMContentLoaded",async () => {
-        window.countries = await (fetch("<?= base_url("Countries/GetAll") ?>",{
-                    headers: {
-                        "HTTP_X_REQUESTED_WITH" : "AJAX"
-                    }
-                }).then(b => b.json()))
-        window.covid_world_timeline = await (fetch("<?= base_url("Covids/GetAll") ?>",{
-                    headers: {
-                        "HTTP_X_REQUESTED_WITH" : "AJAX"
-                    }
-                }).then(b=> b.json()));
+    function finishLoading() {
+        if (!window.countries || !window.covid_world_timeline || !window.covid_total_timeline)
+            return;
+        Start();
+    }
 
-        window.covid_total_timeline = await (fetch("<?= base_url("Globals/GetAll") ?>",{
-                        headers: {
-                            "HTTP_X_REQUESTED_WITH" : "AJAX"
-                        }
-                    }).then(b=> b.json()))
-        willDo();
+    function callData(url, callback) {
+        fetch(url, {
+                headers: {
+                    "HTTP_X_REQUESTED_WITH": "AJAX"
+                }
+            })
+            .then(b => b.json()).then(b => {
+                callback(b);
+                finishLoading();
+            });
+    }
+
+    window.addEventListener("DOMContentLoaded", async () => {
+        callData("<?= base_url("Countries/GetAll") ?>", e => window.countries = e)
+        callData("<?= base_url("Covids/GetAll") ?>", e => window.covid_world_timeline = e)
+        callData("<?= base_url("Globals/GetAll") ?>", e => window.covid_total_timeline = e)
     })
-    // fetch("<?= base_url("Countries/GetAll") ?>",{
-    //     headers: {
-    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
-    //     }
-    // }).then(b=> b.json())
-    //     .then(b=> {
-    //         // covid_world_timeline = (b);
-    //     })
-    // fetch("<?= base_url("Covids/GetAll") ?>",{
-    //     headers: {
-    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
-    //     }
-    // }).then(b=> b.json())
-    //     .then(b=> {
-    //         covid_world_timeline = (b);
-    //         createGraph();
-    //     })
-    // fetch("<?= base_url("Globals/GetAll") ?>",{
-    //     headers: {
-    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
-    //     }
-    // }).then(b=> b.json())
-    //     .then(b=> {
-    //         console.log(b);
-    //     })
-
-        
 </script>
-<!-- Main app -->
-
 
 </html>
