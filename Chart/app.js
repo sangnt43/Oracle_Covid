@@ -3,7 +3,7 @@ am4core.useTheme(am4themes_animated);
 am4core.useTheme(am4themes_dark);
 // Themes end
 
-var createGraph = (function() {
+am4core.ready(function() {
 
     //#region data, map-data
     var populations = {
@@ -344,7 +344,6 @@ var createGraph = (function() {
             mapData.splice(i, 1);
         }
     }
-
 
     var max = { confirmed: 0, recovered: 0, deaths: 0 };
     var maxPC = { confirmed: 0, recovered: 0, deaths: 0, active: 0 };
@@ -1441,9 +1440,10 @@ var createGraph = (function() {
             var di = data[i];
             var image = bubbleSeries.getImageById(di.id);
             var polygon = polygonSeries.getPolygonById(di.id);
+            var population;
 
             if (image) {
-                var population = Number(populations[image.dataItem.dataContext.id]);
+                population = Number(populations[image.dataItem.dataContext.id]);
 
                 image.dataItem.dataContext.confirmed = di.confirmed;
                 image.dataItem.dataContext.deaths = di.deaths;

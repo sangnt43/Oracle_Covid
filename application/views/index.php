@@ -52,36 +52,57 @@
     </div>
 </body>
 
+<script src="<?= base_url("public/app.js") ?>"></script>
+
 <script>
-    fetch("<?= base_url("Countries/GetAll") ?>",{
-        headers: {
-            "HTTP_X_REQUESTED_WITH" : "AJAX"
-        }
-    }).then(b=> b.json())
-        .then(b=> {
-            // covid_world_timeline = (b);
-        })
-    fetch("<?= base_url("Covids/GetAll") ?>",{
-        headers: {
-            "HTTP_X_REQUESTED_WITH" : "AJAX"
-        }
-    }).then(b=> b.json())
-        .then(b=> {
-            covid_world_timeline = (b);
-            createGraph();
-        })
-    fetch("<?= base_url("Globals/GetAll") ?>",{
-        headers: {
-            "HTTP_X_REQUESTED_WITH" : "AJAX"
-        }
-    }).then(b=> b.json())
-        .then(b=> {
-            console.log(b);
-        })
+    window.addEventListener("DOMContentLoaded",async () => {
+        window.countries = await (fetch("<?= base_url("Countries/GetAll") ?>",{
+                    headers: {
+                        "HTTP_X_REQUESTED_WITH" : "AJAX"
+                    }
+                }).then(b => b.json()))
+        window.covid_world_timeline = await (fetch("<?= base_url("Covids/GetAll") ?>",{
+                    headers: {
+                        "HTTP_X_REQUESTED_WITH" : "AJAX"
+                    }
+                }).then(b=> b.json()));
+
+        window.covid_total_timeline = await (fetch("<?= base_url("Globals/GetAll") ?>",{
+                        headers: {
+                            "HTTP_X_REQUESTED_WITH" : "AJAX"
+                        }
+                    }).then(b=> b.json()))
+        willDo();
+    })
+    // fetch("<?= base_url("Countries/GetAll") ?>",{
+    //     headers: {
+    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
+    //     }
+    // }).then(b=> b.json())
+    //     .then(b=> {
+    //         // covid_world_timeline = (b);
+    //     })
+    // fetch("<?= base_url("Covids/GetAll") ?>",{
+    //     headers: {
+    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
+    //     }
+    // }).then(b=> b.json())
+    //     .then(b=> {
+    //         covid_world_timeline = (b);
+    //         createGraph();
+    //     })
+    // fetch("<?= base_url("Globals/GetAll") ?>",{
+    //     headers: {
+    //         "HTTP_X_REQUESTED_WITH" : "AJAX"
+    //     }
+    // }).then(b=> b.json())
+    //     .then(b=> {
+    //         console.log(b);
+    //     })
 
         
 </script>
 <!-- Main app -->
-<script src="<?= base_url("public/app.js") ?>"></script>
+
 
 </html>
