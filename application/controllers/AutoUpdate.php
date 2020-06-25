@@ -13,8 +13,7 @@ class AutoUpdate extends CI_Controller
     {
         $data = $this->repo->getAll();
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => $value)
             schedule($value["id"], $value["slug"]);
-        }
     }
 }
