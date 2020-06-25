@@ -49,6 +49,12 @@ class Covid_Model extends CI_Model
         ";
         return $this->_map($this->db->query($query)->result_array());
     }
+    public function insert($countryId,$confirmed,$deaths,$recovered,$active,$date)
+    {
+        $query = "EXEC SP_INSERT_COVID_COUNTRIES ($countryId,$confirmed,$deaths,$recovered,$active,TO_DATE('".date_format(date_create($date),"Y-m-d H-i-s")."','DD-MM-YYYY HH24:MI:SS'));";
+        $this->db->query($query);
+        return $this->_map( $this->db->row_affect() );
+    }
     public function getAllTmp()
     {
         return json_decode(file_get_contents(__DIR__."/../../public/data/covids.txt"));

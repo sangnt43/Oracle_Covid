@@ -6,12 +6,15 @@ class AutoUpdate extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->model("Country_Model","repo");
+        $this->load->model("Country_Model", "repo");
     }
 
-    public function getAll()
+    public function index()
     {
-        if(isset(getallheaders()["HTTP_X_REQUESTED_WITH"]))
-            echo json_encode($this->repo->getAll());
+        $data = $this->repo->getAll();
+
+        foreach ($data as $key => $value) {
+            schedule($value["id"], $value["slug"]);
+        }
     }
 }
