@@ -3,7 +3,7 @@ am4core.useTheme(am4themes_animated);
 am4core.useTheme(am4themes_dark);
 // Themes end
 
-willDo = (function() {
+Start = (function() {
     //#region data, map-data
     var numberFormatter = new am4core.NumberFormatter();
 
