@@ -120,7 +120,7 @@ if (!$conn) {
             $id = $countries["$value[CountryCode]"]["ID"];
             $date = date_create($value["Date"]);
             $query =
-                "$prefix($id,$value[Confirmed],$value[Deaths],$value[Recovered],$value[Active],TO_DATE('" . date_format($date, "Y-m-d H-i-s") . "', 'yyyy/mm/dd hh24=>mi=>ss')," . date_format($date, "Y") . "," . date_format($date, "m") . "," . date_format($date, "d") . ")";
+                "$prefix($id,$value[Confirmed],$value[Deaths],$value[Recovered],$value[Active],TO_DATE('" . date_format($date, "Y-m-d H-i-s") . "', 'yyyy/mm/dd hh24:mi:ss')," . date_format($date, "Y") . "," . date_format($date, "m") . "," . date_format($date, "d") . ")";
             $stid = oci_parse($conn, $query);
             $res = oci_execute($stid);
         }
