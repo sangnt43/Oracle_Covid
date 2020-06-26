@@ -15,10 +15,13 @@ if (!function_exists("schedule")) {
         $ci = get_instance();
         $ci->load->model("Covid_Model", "repo");
 
-        $time = date("Y-m-d\TH:i:s\Z", time() - 2 * 60 * 60);
+        $time_1 = date("Y-m-d\TH:i:s\Z", time() - 12 * 60 * 60);
+        $time_2 = date("Y-m-d\TH:i:s\Z", time() - 2 * 60 * 60);
+        $url = "https://api.covid19api.com/country/$iso2/status/confirmed?from=$time_1&to=$time_2";
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.covid19api.com/live/country/$iso2/status/confirmed/date/$time",
+            CURLOPT_URL =>  $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
